@@ -1,0 +1,50 @@
+{%  extends 'dashboard/main.html' %}
+
+{%  block content %}
+
+    <h1>Drivers</h1>
+    <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Drivers</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Date of Birth</th>
+                                            <th>Age</th>
+                                            <th>Sex</th>
+                                            <th>Car Make & Model</th>
+                                            <th>Max Capacity</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in drivers %}
+                                            <tr>
+                                                <td>{{i.first_name}}</td>
+                                                <td>{{i.last_name}}</td>
+                                                <td>{{i.date_of_birth}}</td>
+                                                <td>null</td>
+                                                <td>{{i.gender}}</td>
+                                                <td>{{i.vehicle.carMake}}, {{i.vehicle.carModel}} </td>
+                                                <td>{{i.vehicle.carCapacity}}</td>
+                                                <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+                                                <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

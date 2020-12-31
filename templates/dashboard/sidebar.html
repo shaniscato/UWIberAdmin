@@ -1,0 +1,55 @@
+<!-- Sidebar -->
+{% load static %}
+        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
+                    <img src="{% static 'img/favicon-96x96.png' %}" alt="Urban IQ Logo">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                    </div>
+                </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'drivers' %}">
+                    <i class="fas fa-car-side"></i>
+                    <span>Drivers</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Customers -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'clients' %}">
+                    <i class="fas fa-walking"></i>
+                    <span>Clients</span>
+                </a>
+            </li>
+            <!-- Nav Item -  -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'rides' %}">
+                    <i class="fas fa-road"></i>
+                    <span>Rides</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+        </ul>
+        <!-- End of Sidebar -->
