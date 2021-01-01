@@ -1,13 +1,24 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import AbstractBaseUser
 
 
 # Create your models here.
 
 
+class Vehicle(models.Model):
+    carMake = models.CharField(max_length=40, null=True)
+    carModel = models.CharField(max_length=200, null=True)
+    carCapacity = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.carMake + " " + self.carModel
+
+
 class AppUser(models.Model):
     username = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=60, null=True)
+    is_client = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     last_logged_in = models.DateTimeField(null=True)
     first_name = models.CharField(max_length=16, null=True)
@@ -29,15 +40,6 @@ class Client(AppUser):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
-
-
-class Vehicle(models.Model):
-    carMake = models.CharField(max_length=40, null=True)
-    carModel = models.CharField(max_length=200, null=True)
-    carCapacity = models.IntegerField(null=True)
-
-    def __str__(self):
-        return self.carMake + " " + self.carModel
 
 
 class Driver(AppUser):
