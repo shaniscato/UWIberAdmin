@@ -14,6 +14,12 @@ class DriverSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class RideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ride
+        fields = '__all__'
+
+
 class ClientRegSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client

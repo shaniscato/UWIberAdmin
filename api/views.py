@@ -132,6 +132,44 @@ class DriverViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class RideViewSet(viewsets.ViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def list(self, request):
+        rides = Ride.objects.all()
+        serializer = RideSerializer(rides, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = RideSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None):
+        queryset = Ride.objects.all()
+        rides = get_object_or_404(queryset, pk=pk)
+        serializer = RideSerializer(rides)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        rides = Ride.objects.get(pk=pk)
+        serializer = RideSerializer(rides, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        rides = Ride.objects.get(pk=pk)
+        rides.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class ClientRegViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = ClientSerializer(data=request.data)
