@@ -38,9 +38,6 @@ class Client(AppUser):
     class Meta:
         ordering = ['email']
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
-
 
 class Driver(AppUser):
     vehicle = models.ForeignKey(Vehicle, null=True, on_delete=models.SET_NULL)
@@ -51,9 +48,6 @@ class Driver(AppUser):
     documentation = models.FileField(upload_to='files', null=True)
     license_issue_date = models.DateField(null=True)
     license_expiry_date = models.DateField(null=True)
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name
 
 
 class Location(models.Model):
