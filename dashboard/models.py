@@ -39,7 +39,8 @@ class Client(AppUser):
         ordering = ['email']
 
     def __str__(self):
-        return self.last_name, self.first_name
+        template = '{0.first_name} {0.last_name}'
+        return template.format(self)
 
 
 class Driver(AppUser):
@@ -53,7 +54,8 @@ class Driver(AppUser):
     license_expiry_date = models.DateField(null=True)
 
     def __str__(self):
-        return self.last_name, self.first_name
+        template = '{0.first_name} {0.last_name}'
+        return template.format(self)
 
 
 class Location(models.Model):
@@ -67,7 +69,8 @@ class Ride(models.Model):
     client = models.ForeignKey(Client, null=True, on_delete=models.SET_NULL)
     driver = models.ForeignKey(Driver, null=True, on_delete=models.SET_NULL)
     vehicle = models.ForeignKey(Vehicle, null=True, on_delete=models.SET_NULL)
-    location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
+    start_location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL, related_name='start_location')
+    end_location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL, related_name='end_location')
     STATUS = (
         ('Pending Pickup', 'Pending Pickup'),
         ('Pickup Location', 'Pickup Location'),
@@ -85,4 +88,5 @@ class Ride(models.Model):
         ordering = ['date_created']
 
     def __str__(self):
-        return str(self.date_created) + " - " + str(self.driver)
+        template = '{0.start_location}-{0.end_location} {0.time}'
+        return template.format(self)

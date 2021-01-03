@@ -3,5 +3,41 @@
 {%  block content %}
 
     <h1>Rides</h1>
-
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Drivers</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Ride #</th>
+                                    <th>Client</th>
+                                    <th>Driver</th>
+                                    <th>Car Model</th>
+                                    <th>Date</th>
+                                    <th># Passengers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in rides %}
+                                    <tr>
+                                        <td>{{ i.id }}</td>
+                                        <td>{{i.client}}</td>
+                                        <td>{{i.driver}}</td>
+                                        <td>{{i.vehicle.carMake}}, {{ i.vehicle.carModel }}</td>
+                                        <td>{{ i.date_created }}</td>
+                                        <td>{{i.numPassengers}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
