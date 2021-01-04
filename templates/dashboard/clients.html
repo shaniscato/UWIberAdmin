@@ -3,6 +3,45 @@
 {%  block content %}
 
     <h1>Clients</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Clients</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Sex</th>
+                                    <th>Phone Number</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for client in clients %}
+                                    <tr>
+                                        <td>{{ client.first_name }}</td>
+                                        <td>{{ client.last_name }}</td>
+                                        <td>{{ client.date_of_birth }}</td>
+                                        <td>{{ client.gender }}</td>
+                                        <td>{{ client.phonenumber }}</td>
+                                        <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+                                        <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
