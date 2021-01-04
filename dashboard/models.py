@@ -27,7 +27,6 @@ class AppUser(models.Model):
     gender = models.CharField(max_length=1, null=True)
     phone_number = models.IntegerField(null=True)
     address = models.CharField(max_length=200, null=True)
-    profile_picture = models.FileField(upload_to='files', null=True)
 
     class Meta:
         abstract = True
@@ -77,12 +76,16 @@ class Ride(models.Model):
         ('Pending Drop-off', 'Pending Drop-off'),
         ('Drop-off Location', 'Drop-off Location')
     )
-
+    TYPE = (
+        ('Scheduled Ride', 'Scheduled Ride'),
+        ('Unscheduled Ride', 'Unscheduled Ride'),
+    )
     price = models.FloatField(null=True)
     time = models.TimeField(null=True)
     numPassengers = models.IntegerField(null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+    ride_type = models.CharField(max_length=200, null=True, choices=TYPE)
 
     class Meta:
         ordering = ['date_created']

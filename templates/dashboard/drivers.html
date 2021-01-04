@@ -21,8 +21,6 @@
                                     <th>Sex</th>
                                     <th>Car Make & Model</th>
                                     <th>Max Capacity</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,8 +33,6 @@
                                         <td>{{ driver.gender }}</td>
                                         <td>{{ driver.vehicle.carMake }}, {{ driver.vehicle.carModel }} </td>
                                         <td>{{ driver.vehicle.carCapacity }}</td>
-                                        <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
-                                        <td><a class="btn btn-sm btn-danger" href="#">Delete</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

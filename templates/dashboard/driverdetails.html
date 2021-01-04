@@ -1,10 +1,132 @@
 {%  extends 'dashboard/main.html' %}
-
 {%  block content %}
 
     <h1>Drivers Details</h1>
-    <div class="card">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="container details">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3>{{ driver.first_name }} {{ driver.last_name }}</h3>
+                            <div class="row">
+                                <p>
+                                    <div class="col-xs-12 col-md-3"><b>Email address: </b></div>
+                                    <div class="col-xs-12 col-md-9">{{ driver.email }}</div>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <div class="col-xs-12 col-md-3"><b>Contact Number: </b></div>
+                                    <div class="col-xs-12 col-md-9">{{ driver.phone_number }}</div>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <div class="col-xs-12 col-md-3"><b>Gender: </b></div>
+                                    <div class="col-xs-12 col-md-9">{{ driver.gender }}</div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><p><b>ID Number: </b>{{ driver.id }}</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="card shadow mb-4">
+                <div class="container details">
+                    <div class="row">
+                        <div class="col-md-3"><b>Address</b></div>
+                        <div class="col-md-3">{{ driver.address }}</div>
+                        <div class="col-md-3"><b>Car Make</b></div>
+                        <div class="col-md-3">{{ driver.vehicle.carMake }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><b>Date of Birth</b></div>
+                        <div class="col-md-3">{{ driver.date_of_birth }}</div>
+                        <div class="col-md-3"><b>Car Model</b></div>
+                        <div class="col-md-3">{{ driver.vehicle.carModel }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"><b>Age</b></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3"><b>Maximum Capacity</b></div>
+                        <div class="col-md-3">{{ driver.vehicle.carCapacity }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="row">
+                <div class="col-xs-12 col-6">
+                    <div class="card shadow mb-4">
+                        <div class="container details">
+                            <b>Total No. of Ride</b>
+                            <b class="align-self-center">{{ total_rides }}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-6">
+                    <div class="card shadow mb-4">
+                        <div class="container details">
+                            <b>No. of Scheduled Rides</b>
+                        <b class="align-self-center">{{ scheduled_rides }}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-6">
+                    <div class="container details">
+                        <div class="card shadow mb-4">
+                            <b>Commission</b>
+                            <b class="align-self-center">{{ commission }}%</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-6">
+                    <div class="container details">
+                        <div class="card shadow mb-4">
+                            <b>Total No. of Unscheduled Rides</b>
+                            <b class="align-self-center">{{ unscheduled_rides }}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-12">
+            <h5>Documentation Information</h5>
+            <div class="card shadow mb-4">
+                <div class="container details">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <b>Document Type</b>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <p>Driving License Documents</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <b>Date of Issue</b>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <p>{{ driver.license_issue_date }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <b>Date of Expiry</b>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <p>{{ driver.license_expiry_date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
+
+
 
 {% endblock %}
