@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import *
 from django.db.models import Sum, Avg, Count
 from itertools import chain
 import datetime
 from datetime import date
+from .forms import *
 
 from django.utils import timezone
 import pytz
@@ -28,11 +29,6 @@ def home(request):
         requests_per_month.append(Ride.objects.filter(date_created__month=month).count())
     str(requests_per_month)
 
-    """rides = Ride.objects.all()
-    for ride in rides:
-        name = ride.start_location.locationName
-        location_count = rides.filter(start_location__locationName=name).count()"""
-
     locations = Location.objects.all()
     location_counter = []
     for location in locations:
@@ -42,10 +38,6 @@ def home(request):
     drivers_weekly_avg = Ride.objects.filter(date_created__week=current_week).aggregate(Avg('price'))
     avg_week_income = drivers_weekly_avg['price__avg']
 
-    """drivers_income = Driver.objects.filter(date_created__range=[start_week, end_week]).annotate(
-        income=Sum('commission'))
-    gross_income = drivers_income[0].income"""
-
     context = {'requests_per_month':requests_per_month,'locations': locations, 'location_counter':location_counter, 'requests_this_week': requests_this_week,
                'total_users': total_users, 'avg_week_income': avg_week_income, 'clients': clients[:3],
                'drivers': drivers[:3], 'rides': rides}
@@ -54,7 +46,8 @@ def home(request):
 
 
 def clients(request):
-    return render(request, 'dashboard/clients.html')
+    clients = Client.objects.all()
+    return render(request, 'dashboard/clients.html', {'clients':clients})
 
 
 def drivers(request):
@@ -66,20 +59,22 @@ def driver_details(request, pk):
     driver = Driver.objects.get(id=pk)
     rides = driver.ride_set.all()
 
-    clients = Client.objects.all()
-
-
-    rides.filter(start_location='')
     ride_count = rides.count()
     scheduled_rides = rides.annotate(type=Count('ride_type')).count()
     commission = driver.commission
     unscheduled_rides = rides.annotate(type=Count('ride_type')).count()
     total_rides = scheduled_rides + unscheduled_rides
 
-
-
     context = {'driver': driver, 'rides': rides, 'ride_count': ride_count, 'scheduled_rides':scheduled_rides, 'unscheduled_rides':unscheduled_rides, 'total_rides':total_rides,'commission':commission}
     return render(request, 'dashboard/driverdetails.html', context)
+
+
+def client_details(request, pk):
+    client = Client.objects.get(id=pk)
+    rides = client.ride_set.all()
+    ride_count = rides.count()
+    context = {'client': client, 'rides': rides, 'ride_count': ride_count}
+    return render(request, 'dashboard/clientdetails.html', context)
 
 
 def rides(request):
@@ -93,3 +88,51 @@ def pie_chart(request):
 
 def line_graph(request):
     return render(request, 'dashboard/charts/linegraph.html')
+
+def create_client(request):
+    form = ClientForm()
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/clients')
+    context = {'form':form}
+    return render(request, 'dashboard/forms/clientform.html', context)
+
+
+def update_client(request, pk):
+    client = Client.objects.get(id=pk)
+    form = ClientForm(instance=client)
+
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('/clients')
+
+    context = {'form': form}
+    return render(request, 'dashboard/forms/clientform.html', context)
+
+
+def create_driver(request):
+    form = DriverForm()
+    if request.method == 'POST':
+        form = DriverForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/drivers')
+    context = {'form': form}
+    return render(request, 'dashboard/forms/driverform.html', context)
+
+
+def update_driver(request, pk):
+    driver = Driver.objects.get(id=pk)
+    form = DriverForm(instance=driver)
+
+    if request.method == 'POST':
+        form = DriverForm(request.POST, instance=driver)
+        if form.is_valid():
+            form.save()
+            return redirect('/drivers')
+    context = {'form': form}
+    return render(request, 'dashboard/forms/driverform.html', context)

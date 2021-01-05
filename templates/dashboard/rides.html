@@ -7,7 +7,7 @@
         <div class="col-sm-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Drivers</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Rides</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -23,14 +23,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for i in rides %}
+                                {% for ride in rides %}
                                     <tr>
-                                        <td>{{ i.id }}</td>
-                                        <td>{{i.client}}</td>
-                                        <td>{{i.driver}}</td>
-                                        <td>{{i.vehicle.carMake}}, {{ i.vehicle.carModel }}</td>
-                                        <td>{{ i.date_created }}</td>
-                                        <td>{{i.numPassengers}}</td>
+                                        <td>{{ ride.id }}</td>
+                                        <td>{{ride.client}}</td>
+                                        <td>{{ride.driver}}</td>
+                                        <td>{{ride.vehicle.carMake}}, {{ i.vehicle.carModel }}</td>
+                                        <td>{{ ride.date_created }}</td>
+                                        <td>{{ride.numPassengers}}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
