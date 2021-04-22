@@ -1,0 +1,19 @@
+{%  extends 'dashboard/main-login.html' %}
+
+{%  block content %}
+    <div class="card login">
+        <h2>Login</h2>
+        <form>
+            <div class="mb-3">
+                <label for="usernameInput" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" aria-describedby="usernameInput">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+            <p><a>Don't have an account? <a href="#">Sign up.</a></p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}

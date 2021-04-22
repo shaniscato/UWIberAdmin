@@ -15,6 +15,16 @@ from datetime import datetime, timedelta
 # Create your views here.
 
 
+def registerPage(request):
+    context = {}
+    return render(request, 'dashboard/register.html', context)
+
+
+def loginPage(request):
+    context = {}
+    return render(request, 'dashboard/login.html', context)
+
+
 def home(request):
     rides = Ride.objects.all()
     drivers = Driver.objects.all()

@@ -1,42 +1,82 @@
+/* line 4, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
 body {
   font-family: 'Roboto', sans-serif;
 }
 
+/* line 8, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
 .sidebar .sidebar-brand {
-    padding: 4rem 1rem;
-}
-.sidebar
-{
-    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
+  padding: 4rem 1rem;
 }
 
-.sidebar .nav-item .nav-link{
-    color: #19637D;
-}
-.sidebar .nav-item .nav-link i{
-    color: #00BFA5;
-}
-.sidebar .nav-item.active .nav-link{
-    color: #FFFFFF;
-    background: rgba(16, 126, 140, 1);
-}
-.sidebar .nav-item.active .nav-link i{
-    color: #fff
-}
-#overview-cards{
-    color:#fff
-}
-#total-users{
-    background: linear-gradient(270deg, #107E8C 0%, #19637D 56.88%, #205072 105%);
-}
-#weekly-requests{
-    background: linear-gradient(270deg, #00BFA5 0%, #107E8C 105%);
-}
-#avg-gross{
-    background: linear-gradient(270deg, #9CEC8E 0%, #00BFA5 105%);
-    /*background: linear-gradient(270deg, #9CEC8E 0%, #4CD59A 105%);*/
+/* line 11, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.sidebar {
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.15);
 }
 
-.details{
-    padding:20px;
+/* line 16, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.sidebar .nav-item .nav-link {
+  color: #19637D;
 }
+
+/* line 19, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.sidebar .nav-item .nav-link i {
+  color: #00BFA5;
+}
+
+/* line 22, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.sidebar .nav-item.active .nav-link {
+  color: #FFFFFF;
+  background: #107e8c;
+}
+
+/* line 26, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.sidebar .nav-item.active .nav-link i {
+  color: #fff;
+}
+
+/* line 29, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+#overview-cards {
+  color: #fff;
+}
+
+/* line 32, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+#total-users {
+  background: linear-gradient(270deg, #107E8C 0%, #19637D 56.88%, #205072 105%);
+}
+
+/* line 35, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+#weekly-requests {
+  background: linear-gradient(270deg, #00BFA5 0%, #107E8C 105%);
+}
+
+/* line 38, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+#avg-gross {
+  background: linear-gradient(270deg, #9CEC8E 0%, #00BFA5 105%);
+  /*background: linear-gradient(270deg, #9CEC8E 0%, #4CD59A 105%);*/
+}
+
+/* line 43, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.details {
+  padding: 20px;
+}
+
+/* line 46, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+html {
+  height: 100%;
+}
+
+/* line 49, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.background {
+  height: 100%;
+  background: url("../img/4a94268541d7a0ed95a8be5138e8a288.jpg") no-repeat center center fixed;
+}
+
+/* line 53, ../../../OneDrive - The University of the West Indies/2020 - 2021/Semester 1/SWEN3010 Web & Mobile App Dev 1/Assignments/UWIber/static/scss/main.scss */
+.login {
+  width: 400px;
+  margin: auto;
+  top: 25%;
+  padding: 25px 40px;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -16,4 +16,7 @@ urlpatterns = [
     path('update-client/<str:pk>/', views.update_client, name="update_client"),
     path('create-driver/', views.create_client, name="create_driver"),
     path('update-driver/<str:pk>/', views.update_driver, name="update_driver"),
+
+    path('login/', views.loginPage, name='login'),
+    path('register/', views.registerPage, name='register'),
 ]
