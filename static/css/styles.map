@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sources": [
+		"../scss/styles.scss"
+	],
+	"sourcesContent": [
+		"$theme-colors: (\r\n  \"primary\": #4dc4d4\r\n);"
+	],
+	"names": [],
+	"mappings": ""
+}

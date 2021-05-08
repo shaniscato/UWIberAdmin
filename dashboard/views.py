@@ -1,40 +1,56 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.forms import inlineformset_factory
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
-from .models import *
 from django.db.models import Sum, Avg, Count
-from itertools import chain
-import datetime
 from datetime import date
 from .forms import *
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
-from django.utils import timezone
-import pytz
-
-import datetime
-from datetime import datetime, timedelta
 # Create your views here.
 
 
 def registerPage(request):
-    form = UserCreationForm()
-
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-
-    context = {}
-    return render(request, 'dashboard/register.html', context)
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get("username")
+                messages.success(request, "Account was successfully created for "+ user )
+                return redirect('login')
+        context = {'form': form}
+        return render(request, 'dashboard/register.html', context)
 
 
 def loginPage(request):
-    context = {}
-    return render(request, 'dashboard/login.html', context)
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.info(request, 'Username OR password is incorrect')
+                return render(request, 'dashboard/login.html')
+        context = {}
+        return render(request, 'dashboard/login.html', context)
 
 
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required(login_url='login')
 def home(request):
     rides = Ride.objects.all()
     drivers = Driver.objects.all()
@@ -65,16 +81,19 @@ def home(request):
     return render(request, 'dashboard/dashboard.html', context)
 
 
+@login_required(login_url='login')
 def clients(request):
     clients = Client.objects.all()
     return render(request, 'dashboard/clients.html', {'clients':clients})
 
 
+@login_required(login_url='login')
 def drivers(request):
     drivers = Driver.objects.all()
     return render(request, 'dashboard/drivers.html', {'drivers': drivers})
 
 
+@login_required(login_url='login')
 def driver_details(request, pk):
     driver = Driver.objects.get(id=pk)
     rides = driver.ride_set.all()
@@ -89,6 +108,7 @@ def driver_details(request, pk):
     return render(request, 'dashboard/driverdetails.html', context)
 
 
+@login_required(login_url='login')
 def client_details(request, pk):
     client = Client.objects.get(id=pk)
     rides = client.ride_set.all()
@@ -109,6 +129,8 @@ def pie_chart(request):
 def line_graph(request):
     return render(request, 'dashboard/charts/linegraph.html')
 
+
+@login_required(login_url='login')
 def create_client(request):
     form = ClientForm()
     if request.method == 'POST':
@@ -120,6 +142,7 @@ def create_client(request):
     return render(request, 'dashboard/forms/clientform.html', context)
 
 
+@login_required(login_url='login')
 def update_client(request, pk):
     client = Client.objects.get(id=pk)
     form = ClientForm(instance=client)
@@ -134,6 +157,7 @@ def update_client(request, pk):
     return render(request, 'dashboard/forms/clientform.html', context)
 
 
+@login_required(login_url='login')
 def create_driver(request):
     form = DriverForm()
     if request.method == 'POST':
@@ -145,6 +169,7 @@ def create_driver(request):
     return render(request, 'dashboard/forms/driverform.html', context)
 
 
+@login_required(login_url='login')
 def update_driver(request, pk):
     driver = Driver.objects.get(id=pk)
     form = DriverForm(instance=driver)

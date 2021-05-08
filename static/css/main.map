@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "main.css",
+	"sources": [
+		"../scss/main.scss"
+	],
+	"sourcesContent": [
+		"$theme-colors: (\r\n  \"primary\": #205072\r\n);\r\nbody {\r\n  font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.sidebar .sidebar-brand {\r\n    padding: 4rem 1rem;\r\n}\r\n.sidebar\r\n{\r\n    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.15);\r\n}\r\n\r\n.sidebar .nav-item .nav-link{\r\n    color: #19637D;\r\n}\r\n.sidebar .nav-item .nav-link i{\r\n    color: #00BFA5;\r\n}\r\n.sidebar .nav-item.active .nav-link{\r\n    color: #FFFFFF;\r\n    background: rgba(16, 126, 140, 1);\r\n}\r\n.sidebar .nav-item.active .nav-link i{\r\n    color: #fff\r\n}\r\n#overview-cards{\r\n    color:#fff\r\n}\r\n#total-users{\r\n    background: linear-gradient(270deg, #107E8C 0%, #19637D 56.88%, #205072 105%);\r\n}\r\n#weekly-requests{\r\n    background: linear-gradient(270deg, #00BFA5 0%, #107E8C 105%);\r\n}\r\n#avg-gross{\r\n    background: linear-gradient(270deg, #9CEC8E 0%, #00BFA5 105%);\r\n    /*background: linear-gradient(270deg, #9CEC8E 0%, #4CD59A 105%);*/\r\n}\r\n\r\n.details{\r\n    padding:20px;\r\n}\r\nhtml{\r\n    height: 100%;\r\n}\r\n.background{\r\n    height: 100%;\r\n    background: url('../img/4a94268541d7a0ed95a8be5138e8a288.jpg') no-repeat center center fixed;\r\n}\r\n.login{\r\n    width:400px;\r\n    margin: auto;\r\n    top: 25%;\r\n    padding: 25px 40px;\r\n}"
+	],
+	"names": [],
+	"mappings": ";AAGA,AAAA,IAAI,CAAC;EACH,WAAW,EAAE,oBAAoB;CAClC;;;AAED,AAAA,QAAQ,CAAC,cAAc,CAAC;EACpB,OAAO,EAAE,SAAS;CACrB;;;AACD,AAAA,QAAQ,CACR;EACI,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,mBAAmB;CAClD;;;AAED,AAAA,QAAQ,CAAC,SAAS,CAAC,SAAS,CAAA;EACxB,KAAK,EAAE,OAAO;CACjB;;;AACD,AAAA,QAAQ,CAAC,SAAS,CAAC,SAAS,CAAC,CAAC,CAAA;EAC1B,KAAK,EAAE,OAAO;CACjB;;;AACD,AAAA,QAAQ,CAAC,SAAS,AAAA,OAAO,CAAC,SAAS,CAAA;EAC/B,KAAK,EAAE,OAAO;EACd,UAAU,EAAE,OAAqB;CACpC;;;AACD,AAAA,QAAQ,CAAC,SAAS,AAAA,OAAO,CAAC,SAAS,CAAC,CAAC,CAAA;EACjC,KAAK,EAAE,IACX;CAAC;;;AACD,AAAA,eAAe,CAAA;EACX,KAAK,EAAC,IACV;CAAC;;;AACD,AAAA,YAAY,CAAA;EACR,UAAU,EAAE,iEAAiE;CAChF;;;AACD,AAAA,gBAAgB,CAAA;EACZ,UAAU,EAAE,iDAAiD;CAChE;;;AACD,AAAA,UAAU,CAAA;EACN,UAAU,EAAE,iDAAiD;EAC7D,kEAAkE;CACrE;;;AAED,AAAA,QAAQ,CAAA;EACJ,OAAO,EAAC,IAAI;CACf;;;AACD,AAAA,IAAI,CAAA;EACA,MAAM,EAAE,IAAI;CACf;;;AACD,AAAA,WAAW,CAAA;EACP,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,kDAAkD,CAAC,SAAS,CAAC,MAAM,CAAC,MAAM,CAAC,KAAK;CAC/F;;;AACD,AAAA,MAAM,CAAA;EACF,KAAK,EAAC,KAAK;EACX,MAAM,EAAE,IAAI;EACZ,GAAG,EAAE,GAAG;EACR,OAAO,EAAE,SAAS;CACrB"
+}
