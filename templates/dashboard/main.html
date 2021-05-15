@@ -21,7 +21,9 @@
   <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        {%  include 'dashboard/sidebar.html' %}
+		{% if request.user.is_staff %}
+        	{%  include 'dashboard/sidebar.html' %}
+		{% endif %}
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

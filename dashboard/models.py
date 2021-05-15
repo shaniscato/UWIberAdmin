@@ -1,6 +1,6 @@
 from django.db import models
 from django import forms
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, User
 
 
 # Create your models here.
@@ -34,6 +34,7 @@ class AppUser(models.Model):
 
 
 class Client(AppUser):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     class Meta:
         ordering = ['email']
 
@@ -43,6 +44,7 @@ class Client(AppUser):
 
 
 class Driver(AppUser):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, null=True, on_delete=models.SET_NULL)
     commission = models.FloatField(null=True)
     scheduled_rides = models.IntegerField(null=True)

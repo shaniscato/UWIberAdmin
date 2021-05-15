@@ -1,0 +1,29 @@
+{%  extends 'dashboard/main.html' %}
+{%  block content %}
+
+    <h1>User Details</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="container details">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                            <div class="row">
+                                <p>
+                                    <div class="col-xs-12 col-md-3"><b>Email address: </b></div>
+                                    <div class="col-xs-12 col-md-9">{{ request.user.email }}</div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><p><b>ID Number: </b>{{ request.user.id }}</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
