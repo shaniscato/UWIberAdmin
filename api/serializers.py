@@ -20,6 +20,12 @@ class RideSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+
 class ClientRegSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client

@@ -1,4 +1,4 @@
-from api.views import ClientViewSet, DriverViewSet, RideViewSet
+from api.views import ClientViewSet, DriverViewSet, RideViewSet, LocationViewSet
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -9,6 +9,7 @@ router = DefaultRouter()
 router.register('client', ClientViewSet, basename='client')
 router.register('driver', DriverViewSet, basename='driver')
 router.register('ride', RideViewSet, basename='ride')
+router.register('location', LocationViewSet, basename='location')
 
 urlpatterns = [
     path("login/", views.login),

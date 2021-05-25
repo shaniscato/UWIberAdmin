@@ -61,6 +61,8 @@ class Driver(AppUser):
 
 class Location(models.Model):
     locationName = models.CharField(max_length=200, null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
 
     def __str__(self):
         return self.locationName

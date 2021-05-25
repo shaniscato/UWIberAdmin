@@ -170,6 +170,19 @@ class RideViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class LocationViewSet(viewsets.ViewSet):
+    def list(self, request):
+        locations = Location.objects.all()
+        serializer = LocationSerializer(locations, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Location.objects.all()
+        locations = get_object_or_404(queryset, pk=pk)
+        serializer = LocationSerializer(locations)
+        return Response(serializer.data)
+
+
 class ClientRegViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = ClientSerializer(data=request.data)
