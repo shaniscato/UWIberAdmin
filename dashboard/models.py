@@ -16,13 +16,13 @@ class Vehicle(models.Model):
 
 
 class AppUser(models.Model):
-    username = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=60, null=True)
-    is_client = models.BooleanField(default=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    last_logged_in = models.DateTimeField(null=True)
-    first_name = models.CharField(max_length=16, null=True)
-    last_name = models.CharField(max_length=16, null=True)
+    # username = models.CharField(max_length=20, null=True)
+    # email = models.CharField(max_length=60, null=True)
+    # is_client = models.BooleanField(default=True)
+    # date_created = models.DateTimeField(auto_now_add=True, null=True)
+    # last_logged_in = models.DateTimeField(null=True)
+    # first_name = models.CharField(max_length=16, null=True)
+    # last_name = models.CharField(max_length=16, null=True)
     date_of_birth = models.DateField(max_length=40, null=True)
     gender = models.CharField(max_length=1, null=True)
     phone_number = models.IntegerField(null=True)
@@ -30,17 +30,16 @@ class AppUser(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['date_created']
 
 
 class Client(AppUser):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    class Meta:
-        ordering = ['email']
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='client')
 
-    def __str__(self):
-        template = '{0.first_name} {0.last_name}'
-        return template.format(self)
+    # def __str__(self):
+    #     template = '{0.user.first_name} {0.user.last_name}'
+    #     return template.format(self)
+
+    list_display = ("last_name", "first_name")
 
 
 class Driver(AppUser):
@@ -49,13 +48,12 @@ class Driver(AppUser):
     commission = models.FloatField(null=True)
     scheduled_rides = models.IntegerField(null=True)
     unscheduled_rides = models.IntegerField(null=True)
-    total_rides = models.IntegerField(null=True)
     documentation = models.FileField(upload_to='files', null=True)
     license_issue_date = models.DateField(null=True)
     license_expiry_date = models.DateField(null=True)
 
     def __str__(self):
-        template = '{0.first_name} {0.last_name}'
+        template = '{0.user.first_name} {0.user.last_name}'
         return template.format(self)
 
 

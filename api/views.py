@@ -4,13 +4,15 @@ from django.shortcuts import get_object_or_404
 
 # Rest Framework - Token Authentication
 from rest_framework.decorators import api_view
+from rest_framework import renderers
 from rest_framework.response import Response
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
+from rest_framework.reverse import reverse
 
 
 # Create your views here.
@@ -32,7 +34,7 @@ def login(request):
                         status=status.HTTP_404_NOT_FOUND)
 
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token':token.key},
+    return Response({'id':user.id, 'token':token.key},
                     status=status.HTTP_200_OK)
 
 
@@ -40,25 +42,33 @@ def login(request):
 @api_view(['POST'])
 def register(request):
 
+    is_client = request.data.get("is_client")
+    username = request.data.get("username")
     email = request.data.get("email")
     first_name = request.data.get("first_name")
     last_name = request.data.get("last_name")
     password = request.data.get("password")
-    is_client = request.data.get("is_client")
+    client = request.data.get("client")
+    gender = request.data.get("gender")
+    date_of_birth = request.data.get("date_of_birth")
+    phone_number = request.data.get("phone_number")
+    address = request.data.get("address")
 
-    if email is None and password is None and first_name is None and last_name is None and is_client is None:
+    if username is None and password is None and first_name is None and last_name is None and is_client is None:
         return Response({'error': 'Please provide email, name, user type and password'},
                         status=status.HTTP_400_BAD_REQUEST)
 
-    else:
-        if is_client == "True":
-            serializer = ClientRegSerializer(data=request.data)
-        else:
-            serializer = DriverRegSerializer(data=request.data)
+    serializer = UserClientRegSerializer(data=request.data)
+    print(serializer)
+    # else:
+    #     if is_client == "True":
+    #         serializer = UserClientRegSerializer(data=request.data)
+    #     else:
+    #         serializer = DriverRegSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response({'error': 'Fields not found'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ClientViewSet(viewsets.ViewSet):
@@ -132,6 +142,30 @@ class DriverViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class UserViewSet(viewsets.ViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, pk=None):
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = UserSerializer(instance=user)
+        print(request.user)
+        print(user)
+        print(user == request.user)
+        if user == request.user:
+            print("yes")
+            return Response(serializer.data)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+# current_user = str(request.user)
+# if current_user is user:
+        # return Response(serializer.data)
+
+
+
 class RideViewSet(viewsets.ViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -174,13 +208,13 @@ class LocationViewSet(viewsets.ViewSet):
     def list(self, request):
         locations = Location.objects.all()
         serializer = LocationSerializer(locations, many=True)
-        return Response(serializer.data)
+        return Response({'locations':serializer.data})
 
     def retrieve(self, request, pk=None):
         queryset = Location.objects.all()
         locations = get_object_or_404(queryset, pk=pk)
         serializer = LocationSerializer(locations)
-        return Response(serializer.data)
+        return Response({'location':serializer.data})
 
 
 class ClientRegViewSet(viewsets.ViewSet):
@@ -200,6 +234,7 @@ def user_validator(serializer):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response({'error': 'Fields not found'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 """class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):

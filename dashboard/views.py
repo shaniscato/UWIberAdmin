@@ -22,7 +22,7 @@ def register_page(request):
             form.save()
             user = form.save
             username = form.cleaned_data.get("username")
-            group = Group.objects.get(name='client')
+            group = Group.objects.get(name='Client')
             user.groups.add(group)
             messages.success(request, "Account was successfully created for "+ username )
             return redirect('login')
@@ -116,6 +116,9 @@ def driver_details(request, pk):
     scheduled_rides = rides.annotate(type=Count('ride_type')).count()
     commission = driver.commission
     unscheduled_rides = rides.annotate(type=Count('ride_type')).count()
+
+    age = driver.date_of_birth
+
     total_rides = scheduled_rides + unscheduled_rides
 
     context = {'driver': driver, 'rides': rides, 'ride_count': ride_count, 'scheduled_rides':scheduled_rides, 'unscheduled_rides':unscheduled_rides, 'total_rides':total_rides,'commission':commission}

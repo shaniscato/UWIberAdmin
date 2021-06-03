@@ -169,26 +169,26 @@
                 <div class="card-body">
                     <div class="list-group">
                         <h4>Clients</h4>
-                        {% for user in clients%}
+                        {% for client in clients%}
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
-                                <small>{{ user.last_logged_in }}</small>
+                                <h5 class="mb-1">{{ client.user.first_name }} {{ client.user.last_name }}</h5>
+                                <small>{{ client.user.last_logged_in }}</small>
                             </div>
-                            <small>{{ user.username}}</small>
+                            <small>{{ client.user.username}}</small>
                         </a>
                         {% endfor %}
                     </div>
                     <div class="list-group">
                     <hr>
                         <h4>Drivers</h4>
-                        {% for user in drivers%}
+                        {% for driver in drivers%}
                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h5>
+                                <h5 class="mb-1">{{ driver.user.first_name }} {{ driver.user.last_name }}</h5>
                                 <small>{{ user.last_logged_in }}</small>
                             </div>
-                            <small>{{ user.username}}</small>
+                            <small>{{ driver.user.username}}</small>
                         </a>
                         {% endfor %}
                     </div>
