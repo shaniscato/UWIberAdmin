@@ -49,25 +49,36 @@ def register(request):
     last_name = request.data.get("last_name")
     password = request.data.get("password")
     client = request.data.get("client")
-    gender = request.data.get("gender")
-    date_of_birth = request.data.get("date_of_birth")
-    phone_number = request.data.get("phone_number")
-    address = request.data.get("address")
+    # gender = request.data.get("gender")
+    # date_of_birth = request.data.get("date_of_birth")
+    # phone_number = request.data.get("phone_number")
+    # address = request.data.get("address")
 
     if username is None and password is None and first_name is None and last_name is None and is_client is None:
         return Response({'error': 'Please provide email, name, user type and password'},
                         status=status.HTTP_400_BAD_REQUEST)
 
     serializer = UserClientRegSerializer(data=request.data)
-    print(serializer)
+    client_details = request.data.pop('client')
     # else:
     #     if is_client == "True":
     #         serializer = UserClientRegSerializer(data=request.data)
     #     else:
     #         serializer = DriverRegSerializer(data=request.data)
+
+    print(client_details)
+    gender = client_details['gender']
+    date_of_birth = client_details['date_of_birth']
+    address = client_details['address']
+    phone_number = client_details['phone_number']
+
+
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        user = User.objects.get(id=serializer.data['id'])
+        Client.objects.create(user=user,gender=gender, date_of_birth=date_of_birth, address=address,
+                              phone_number=phone_number)
+        return Response([serializer.data, serializer.errors], status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

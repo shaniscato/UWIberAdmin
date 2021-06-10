@@ -22,10 +22,12 @@ class RideSerializer(serializers.ModelSerializer):
 
 class ClientSerializer(serializers.ModelSerializer):
     ride_set = RideSerializer(many=True)
+    user = serializers.StringRelatedField()
+
 
     class Meta:
         model = Client
-        fields = ['date_of_birth', 'gender', 'phone_number', 'address', 'ride_set']
+        fields = ['user', 'date_of_birth', 'gender', 'phone_number', 'address', 'ride_set']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,6 +57,8 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class ClientRegSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+
     class Meta:
         model = Client
         fields = ['user', 'gender', 'date_of_birth', 'phone_number', 'address']
@@ -69,15 +73,29 @@ class UserClientRegSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {'write_only': True}}
 
         def create(self, validated_data):
-            print(validated_data)
-            details = validated_data.pop('client')
-            print(details)
-            user = User.objects.create_user(**validated_data)
-            for detail in details:
-                print(detail)
-                Client.objects.create(user=user, **detail)
-
+            client_data = validated_data.pop('client')
+            user = User.objects.create(**validated_data)
+            # details = list(**client_data.items())
+            # for detail in details:
+            #     if detail[0] == 'gender':
+            #         gender=detail[1]
+            #     elif detail[0] == 'date_of_birth':
+            #         date_of_birth=detail[1]
+            #     elif detail[0] == 'phone_number':
+            #         phone_number=detail[1]
+            #     elif detail[0] == 'address':
+            #         address=detail[1]
+            #
+            #
+            # Client.objects.create(user=user, gender=gender, date_of_birth=date_of_birth, address=address, phone_number=phone_number)
             return user
+
+
+        # def create(self, validated_data):
+        #     return User.objects.create(
+        #         username=validated_data['username'],
+        #         gender=validated_data['client']['gender']
+        #     )
 
 
 # class ClientRegSerializer(serializers.ModelSerializer):

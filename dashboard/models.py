@@ -15,7 +15,7 @@ class Vehicle(models.Model):
         return self.carMake + " " + self.carModel
 
 
-class AppUser(models.Model):
+class CustomUser(models.Model):
     # username = models.CharField(max_length=20, null=True)
     # email = models.CharField(max_length=60, null=True)
     # is_client = models.BooleanField(default=True)
@@ -32,17 +32,19 @@ class AppUser(models.Model):
         abstract = True
 
 
-class Client(AppUser):
+class Client(CustomUser):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='client')
 
-    # def __str__(self):
-    #     template = '{0.user.first_name} {0.user.last_name}'
-    #     return template.format(self)
+    def __str__(self):
+        # template = '{0.user.first_name} {0.user.last_name}'
+        # return template.format(self)
+        return str(self.user)
 
-    list_display = ("last_name", "first_name")
+    # list_display = ("last_name", "first_name")
 
 
-class Driver(AppUser):
+
+class Driver(CustomUser):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, null=True, on_delete=models.SET_NULL)
     commission = models.FloatField(null=True)
@@ -52,9 +54,12 @@ class Driver(AppUser):
     license_issue_date = models.DateField(null=True)
     license_expiry_date = models.DateField(null=True)
 
+    # def __str__(self):
+    #     template = '{0.user.first_name} {0.user.last_name}'
+    #     return template.format(self)
+
     def __str__(self):
-        template = '{0.user.first_name} {0.user.last_name}'
-        return template.format(self)
+        return self.user
 
 
 class Location(models.Model):
@@ -95,3 +100,12 @@ class Ride(models.Model):
     def __str__(self):
         template = '{0.start_location}-{0.end_location} {0.time}'
         return template.format(self)
+
+
+class UserManager(models.Manager):
+    def create(self, username, gender):
+        user = User(username=username, gender=gender)
+        user.save()
+        client = Client(user=user, gender=gender)
+        client.save()
+        return user
