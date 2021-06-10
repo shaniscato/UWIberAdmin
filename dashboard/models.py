@@ -36,9 +36,9 @@ class Client(CustomUser):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='client')
 
     def __str__(self):
-        # template = '{0.user.first_name} {0.user.last_name}'
-        # return template.format(self)
-        return str(self.user)
+        template = '{0.user.first_name} {0.user.last_name}'
+        return template.format(self)
+    #     return str(self.user)
 
     # list_display = ("last_name", "first_name")
 
@@ -54,12 +54,12 @@ class Driver(CustomUser):
     license_issue_date = models.DateField(null=True)
     license_expiry_date = models.DateField(null=True)
 
-    # def __str__(self):
-    #     template = '{0.user.first_name} {0.user.last_name}'
-    #     return template.format(self)
-
     def __str__(self):
-        return self.user
+        template = '{0.user.first_name} {0.user.last_name}'
+        return template.format(self)
+
+    # def __str__(self):
+    #     return str(self.user)
 
 
 class Location(models.Model):
