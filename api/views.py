@@ -4,15 +4,14 @@ from django.shortcuts import get_object_or_404
 
 # Rest Framework - Token Authentication
 from rest_framework.decorators import api_view
-from rest_framework import renderers
 from rest_framework.response import Response
-from rest_framework import viewsets, status, generics
+from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
-from rest_framework.reverse import reverse
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -49,10 +48,6 @@ def register(request):
     last_name = request.data.get("last_name")
     password = request.data.get("password")
     client = request.data.get("client")
-    # gender = request.data.get("gender")
-    # date_of_birth = request.data.get("date_of_birth")
-    # phone_number = request.data.get("phone_number")
-    # address = request.data.get("address")
 
     if username is None and password is None and first_name is None and last_name is None and is_client is None:
         return Response({'error': 'Please provide email, name, user type and password'},
@@ -66,7 +61,6 @@ def register(request):
     #     else:
     #         serializer = DriverRegSerializer(data=request.data)
 
-    print(client_details)
     gender = client_details['gender']
     date_of_birth = client_details['date_of_birth']
     address = client_details['address']
@@ -76,6 +70,9 @@ def register(request):
     if serializer.is_valid():
         serializer.save()
         user = User.objects.get(id=serializer.data['id'])
+        group = Group.objects.get(name='Client')
+        user.groups.add(group)
+        user.groups.add(group)
         Client.objects.create(user=user,gender=gender, date_of_birth=date_of_birth, address=address,
                               phone_number=phone_number)
         return Response([serializer.data, serializer.errors], status=status.HTTP_201_CREATED)
@@ -246,29 +243,3 @@ def user_validator(serializer):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response({'error': 'Fields not found'}, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-"""class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
-
-    lookup_field = 'id'
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, id=None):
-        if id:
-            return self.retrieve(request)
-        else:
-            return self.list(request)
-
-    def post(self, request):
-        return self.create(request)
-
-    def put(self, request, id=None):
-        return self.update(request, id)
-
-    def delete(self, request, id):
-        return self.destroy(request, id)"""
-
-"""def TokenAuthentication():
-    """

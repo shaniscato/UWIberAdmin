@@ -1,15 +1,8 @@
 from rest_framework import serializers
 from dashboard.models import *
 from django.contrib.auth.models import User
+from dashboard import signals
 
-
-# class DriverSerializer(serializers.ModelSerializer):
-#     user = UserSerializer(required=True)
-#
-#     class Meta:
-#         model = Driver
-#         fields = '__all__'
-#         lookup_field = 'user__username'
 
 class RideSerializer(serializers.ModelSerializer):
     start_location = serializers.StringRelatedField()
@@ -38,13 +31,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'email', 'client']
 
 
-# class ClientSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Client
-#         fields = '__all__'
-#
-#
 class DriverSerializer(serializers.ModelSerializer):
+    vehicle = serializers.StringRelatedField()
+    user = serializers.StringRelatedField()
     class Meta:
         model = Driver
         fields = '__all__'
@@ -73,52 +62,9 @@ class UserClientRegSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {'write_only': True}}
 
         def create(self, validated_data):
-            client_data = validated_data.pop('client')
-            user = User.objects.create(**validated_data)
-            # details = list(**client_data.items())
-            # for detail in details:
-            #     if detail[0] == 'gender':
-            #         gender=detail[1]
-            #     elif detail[0] == 'date_of_birth':
-            #         date_of_birth=detail[1]
-            #     elif detail[0] == 'phone_number':
-            #         phone_number=detail[1]
-            #     elif detail[0] == 'address':
-            #         address=detail[1]
-            #
-            #
-            # Client.objects.create(user=user, gender=gender, date_of_birth=date_of_birth, address=address, phone_number=phone_number)
+            validated_data.pop('client')
+            user = User.objects.create_user(**validated_data)
             return user
-
-
-        # def create(self, validated_data):
-        #     return User.objects.create(
-        #         username=validated_data['username'],
-        #         gender=validated_data['client']['gender']
-        #     )
-
-
-# class ClientRegSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Client
-#         fields = '__all__'
-#
-#         def create(self, validated_data):
-#             # Creates and returns a new user
-#
-#             client = Client(
-#
-#                 is_client=validated_data['is_client'],
-#                 gender=validated_data['gender'],
-#                 date_of_birth=validated_data['date_of_birth'],
-#                 phone_number=validated_data['phone_number'],
-#                 address=validated_data['address']
-#
-#             )
-#             client.save()
-
-
-
 
 
 class DriverRegSerializer(serializers.ModelSerializer):

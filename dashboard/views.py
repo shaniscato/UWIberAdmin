@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum, Avg, Count
+from django.db.models.functions import ExtractMonth
+
 from datetime import date
 
-from .decorators import unauthenticated_user, allowed_users
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.db.models.functions import Coalesce
+
+from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 
@@ -20,7 +23,7 @@ def register_page(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.save
+            user = form.save()
             username = form.cleaned_data.get("username")
             group = Group.objects.get(name='Client')
             user.groups.add(group)
@@ -54,7 +57,7 @@ def logout_user(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Admin'])
+@allowed_users(allowed_roles=['Admin', 'Client', 'Driver'])
 def home(request):
     rides = Ride.objects.all()
     drivers = Driver.objects.all()
