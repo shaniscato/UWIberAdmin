@@ -66,14 +66,12 @@ def register(request):
     address = client_details['address']
     phone_number = client_details['phone_number']
 
-
     if serializer.is_valid():
         serializer.save()
         user = User.objects.get(id=serializer.data['id'])
         group = Group.objects.get(name='Client')
         user.groups.add(group)
-        user.groups.add(group)
-        Client.objects.create(user=user,gender=gender, date_of_birth=date_of_birth, address=address,
+        Client.objects.create(user=user, gender=gender, date_of_birth=date_of_birth, address=address,
                               phone_number=phone_number)
         return Response([serializer.data, serializer.errors], status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -158,11 +156,7 @@ class UserViewSet(viewsets.ViewSet):
         queryset = User.objects.all()
         user = get_object_or_404(queryset, pk=pk)
         serializer = UserSerializer(instance=user)
-        print(request.user)
-        print(user)
-        print(user == request.user)
         if user == request.user:
-            print("yes")
             return Response(serializer.data)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -185,10 +179,9 @@ class RideViewSet(viewsets.ViewSet):
 
     def create(self, request):
         serializer = RideSerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response([serializer.data, serializer.errors], status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
