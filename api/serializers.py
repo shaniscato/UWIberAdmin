@@ -10,28 +10,10 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class RideSerializer(serializers.ModelSerializer):
-    start_location = LocationSerializer(required=True)
-    end_location = LocationSerializer(required=True)
 
     class Meta:
         model = Ride
-        fields = ['price', 'time', 'numPassengers', 'date_created', 'ride_type', 'start_location', 'end_location']
-
-    def create(self, validated_data):
-        price = validated_data.get('price')
-        time = validated_data.get('time')
-        numPassengers = validated_data.get('numPassengers')
-        date_created = validated_data.get('date_created')
-        ride_type = validated_data.get('ride_type')
-        start_location = self.initial_data.pop('start_location')
-        end_location = self.initial_data.pop('end_location')
-        start = Location.objects.get(id=start_location['id'])
-        end = Location.objects.get(id=end_location['id'])
-
-        ride = Ride.objects.create(price=price, time=time, numPassengers=numPassengers, date_created=date_created,
-                                   ride_type=ride_type, start_location=start, end_location=end)
-
-        return ride
+        fields = ['price', 'time', 'numPassengers', 'date_created', 'ride_type', 'start_location', 'end_location', 'client', 'driver', 'vehicle']
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -55,6 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DriverSerializer(serializers.ModelSerializer):
     vehicle = serializers.StringRelatedField()
     user = serializers.StringRelatedField()
+
     class Meta:
         model = Driver
         fields = '__all__'
@@ -66,6 +49,13 @@ class ClientRegSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ['user', 'gender', 'date_of_birth', 'phone_number', 'address']
+
+
+class RideUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ride
+        fields = ['price', 'time', 'numPassengers', 'date_created', 'ride_type', 'start_location', 'end_location', 'client', 'driver', 'vehicle']
 
 
 class UserClientRegSerializer(serializers.ModelSerializer):

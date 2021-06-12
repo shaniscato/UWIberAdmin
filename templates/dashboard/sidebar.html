@@ -1,5 +1,6 @@
 <!-- Sidebar -->
 {% load static %}
+	{% with request.resolver_match.url_name as url_name %}
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
@@ -12,7 +13,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {% if url_name == 'home' %}active {% endif %}">
                 <a class="nav-link" href="{% url 'home' %}">
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span></a>
@@ -27,7 +28,7 @@
             </div>
 
             <!-- Nav Item -->
-            <li class="nav-item">
+            <li class="nav-item {% if url_name == 'drivers' or url_name == 'driverdetails'%}active {% endif %}">
                 <a class="nav-link" href="{% url 'drivers' %}">
                     <i class="fas fa-car-side"></i>
                     <span>Drivers</span>
@@ -35,14 +36,14 @@
             </li>
 
             <!-- Nav Item - Customers -->
-            <li class="nav-item">
+            <li class="nav-item {% if url_name == 'clients' or url_name == 'clientdetails' %}active {% endif %}">
                 <a class="nav-link" href="{% url 'clients' %}">
                     <i class="fas fa-walking"></i>
                     <span>Clients</span>
                 </a>
             </li>
             <!-- Nav Item -  -->
-            <li class="nav-item">
+            <li class="nav-item {% if url_name == 'rides' %}active {% endif %}">
                 <a class="nav-link" href="{% url 'rides' %}">
                     <i class="fas fa-road"></i>
                     <span>Rides</span>
@@ -53,3 +54,4 @@
             <hr class="sidebar-divider">
         </ul>
         <!-- End of Sidebar -->
+	{% endwith %}

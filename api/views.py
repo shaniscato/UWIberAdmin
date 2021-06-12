@@ -187,7 +187,7 @@ class RideViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         queryset = Ride.objects.all()
         rides = get_object_or_404(queryset, pk=pk)
-        serializer = RideSerializer(rides)
+        serializer = RideUserSerializer(rides)
         return Response(serializer.data)
 
     def update(self, request, pk=None):
