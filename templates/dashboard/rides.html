@@ -23,7 +23,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for ride in rides %}
+                                {% for ride in page_obj %}
                                     <tr>
                                         <td>{{ ride.id }}</td>
                                         <td>{{ride.client}}</td>

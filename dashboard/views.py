@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.db.models import Sum, Avg, Count
 from django.db.models.functions import ExtractMonth
@@ -83,9 +84,13 @@ def home(request):
         display_price=Coalesce(Avg('price'), 0))
     avg_week_income = drivers_weekly_avg['display_price']
 
+    pagination = Paginator(rides, 5)
+    page_number = request.GET.get('page')
+    page_obj = pagination.get_page(page_number)
+
     context = {'requests_per_month':requests_per_month,'locations': locations, 'location_counter':location_counter, 'requests_this_week': requests_this_week,
                'total_users': total_users, 'avg_week_income': avg_week_income, 'clients': clients[:3],
-               'drivers': drivers[:3], 'rides': rides}
+               'drivers': drivers[:3], 'rides': page_obj.object_list, 'page_obj': page_obj}
 
     return render(request, 'dashboard/dashboard.html', context)
 
@@ -140,7 +145,11 @@ def client_details(request, pk):
 
 def rides(request):
     rides = Ride.objects.all()
-    return render(request, 'dashboard/rides.html', {'rides': rides})
+    pagination = Paginator(rides, 5)
+    page_number = request.GET.get('page')
+    page_obj = pagination.get_page(page_number)
+    context = {'rides': page_obj.object_list, 'page_obj': page_obj}
+    return render(request, 'dashboard/rides.html', context)
 
 
 def pie_chart(request):
