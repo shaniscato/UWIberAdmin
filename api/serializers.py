@@ -9,6 +9,12 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class VehicleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vehicle
+        fields = '__all__'
+
+
 class RideSerializer(serializers.ModelSerializer):
 
     class Meta:

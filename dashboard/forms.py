@@ -16,7 +16,7 @@ class DriverForm(ModelForm):
     class Meta:
         model = Driver
         fields = '__all__'
-        exclude = ('is_client',)
+        exclude = ('is_driver',)
 
 
 class CreateUserForm(UserCreationForm):

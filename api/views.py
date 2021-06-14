@@ -218,6 +218,19 @@ class LocationViewSet(viewsets.ViewSet):
         return Response({'location':serializer.data})
 
 
+class VehicleViewSet(viewsets.ViewSet):
+    def list(self, request):
+        vehicles = Vehicle.objects.all()
+        serializer = VehicleSerializer(vehicles, many=True)
+        return Response({'vehicle':serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Vehicle.objects.all()
+        vehicle = get_object_or_404(queryset, pk=pk)
+        serializer = LocationSerializer(vehicle)
+        return Response({'vehicle':serializer.data})
+
+
 class ClientRegViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = ClientSerializer(data=request.data)
