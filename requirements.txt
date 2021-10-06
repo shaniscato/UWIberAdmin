@@ -39,7 +39,7 @@ pytz==2020.5
 pywin32==300
 PyYAML==5.4
 requests==2.24.0
-rsa==4.6
+rsa==4.7
 semantic-version==2.5.0
 six==1.15.0
 sqlparse==0.4.2
